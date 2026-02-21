@@ -304,6 +304,9 @@ def post_new_message(
     response.headers["X-Session-ID"] = str(chat_session.id)
     # *** CHANGE: Add flag to indicate if this was a new session ***
     response.headers["X-Session-Created"] = str(session_was_created).lower()
+    # Disable reverse proxy buffering (Render/nginx) so chunks stream in real-time
+    response.headers["X-Accel-Buffering"] = "no"
+    response.headers["Cache-Control"] = "no-cache"
     
     print(f"--- DEBUG: Returning response with session ID {chat_session.id} in headers ---")
     return response
