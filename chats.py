@@ -297,7 +297,7 @@ def post_new_message(
             request_data.model_name,
             request_data.use_web_search
         ),
-        media_type="text/plain; charset=utf-8"
+        media_type="text/event-stream"
     )
     
     # *** CHANGE: Add session ID to response headers so frontend can capture it ***
