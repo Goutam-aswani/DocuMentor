@@ -43,6 +43,7 @@ async def register_new_user(user_create : UserCreate,background_tasks: Backgroun
     db_user = User(
         **user_data, 
         hashed_password=hashed_password,
+        is_verified=True,
         verification_code=otp,
         verification_code_expires_at=otp_expires_at
     )
@@ -53,17 +54,19 @@ async def register_new_user(user_create : UserCreate,background_tasks: Backgroun
     session.commit()
     session.refresh(db_user)
 
-    email_subject = "Verify Your Email Address"
-    email_body = f"""
-    <p>Hello {db_user.username},</p>
-    <p>Thank you for registering. Please use the following One-Time Password (OTP) to verify your email address:</p>
-    <p><b>{otp}</b></p>
-    <p>This code will expire in 15 minutes.</p>
-    """
-    background_tasks.add_task(
-        send_email, [db_user.email], email_subject, email_body
-    )
-    
+    # Try to send verification email, but don't crash if SMTP is blocked (e.g. Render free tier)
+    try:
+        email_subject = "Welcome to DocuMentor"
+        email_body = f"""
+        <p>Hello {db_user.username},</p>
+        <p>Your account has been created successfully. You can now log in and start using DocuMentor.</p>
+        """
+        background_tasks.add_task(
+            send_email, [db_user.email], email_subject, email_body
+        )
+    except Exception:
+        pass
+
     return db_user
 
 @router.post("/verify-email")
