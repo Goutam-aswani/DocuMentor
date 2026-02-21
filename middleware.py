@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 def setup_cors(app: FastAPI):
-    # Allow all origins in development, and the Vercel domain in production
+    # Explicit list of allowed origins
     origins = [
         "http://localhost",
         "http://localhost:3000",
@@ -15,8 +15,8 @@ def setup_cors(app: FastAPI):
 
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
-        allow_credentials=False,
+        allow_origins=origins,
+        allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
         expose_headers=["X-Session-ID", "X-Session-Created"]
