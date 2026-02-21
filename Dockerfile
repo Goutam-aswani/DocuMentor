@@ -19,5 +19,5 @@ COPY . .
 # Expose the port uvicorn will run on
 EXPOSE 8000
 
-# Run database migrations then start the server
-CMD alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8000
+# Run the server — main.py's create_db_and_tables() handles schema creation on startup
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
