@@ -168,13 +168,15 @@ export default function ChatPage() {
                     // Append the new chunk to the accumulated response
                     accumulatedResponse += chunk;
 
-                    // Clear any existing typing timeout
-                    if (typingTimeoutRef.current) {
-                        clearTimeout(typingTimeoutRef.current);
-                    }
-
-                    // Start a new typing animation for the accumulated response
-                    typeResponse(botPlaceholder.id, accumulatedResponse);
+                    // Directly update the message content for real-time streaming
+                    setMessages(prev => {
+                        const updated = [...prev];
+                        const msgIndex = updated.findIndex(msg => msg.id === botPlaceholder.id);
+                        if (msgIndex !== -1) {
+                            updated[msgIndex] = { ...updated[msgIndex], content: accumulatedResponse };
+                        }
+                        return updated;
+                    });
                 }
             );
 
