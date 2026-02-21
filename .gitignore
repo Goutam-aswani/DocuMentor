@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment secrets — NEVER commit these
+.env
+
+# Database files — ephemeral, not for source control
+database.db
+chroma_db_main/
+
+# Uploads
+temp_uploads/
+log.txt
+
+# Alembic compiled
+alembic/__pycache__/
+
+# Node / frontend
+chatbot-frontend/node_modules/
+chatbot-frontend/dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
