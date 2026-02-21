@@ -16,15 +16,18 @@ conf = ConnectionConfig(
 )
 
 async def send_email(recipients: List[str], subject: str, body: str):
-    message = MessageSchema(
-        subject=subject,
-        recipients=recipients,
-        body=body,
-        subtype="html"
-    )
+    try:
+        message = MessageSchema(
+            subject=subject,
+            recipients=recipients,
+            body=body,
+            subtype="html"
+        )
 
-    fm = FastMail(conf)
-    await fm.send_message(message)
-    print(f"Email sent to {recipients}")
+        fm = FastMail(conf)
+        await fm.send_message(message)
+        print(f"Email sent to {recipients}")
+    except Exception as e:
+        print(f"--- WARNING: Email sending failed (SMTP may be blocked): {e} ---")
 
 
