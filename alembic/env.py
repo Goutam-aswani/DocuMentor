@@ -14,7 +14,7 @@ config = context.config
 # Override the hardcoded alembic.ini URL with the one from app settings.
 # This ensures migrations always run against the correct database (Supabase in prod,
 # SQLite locally) based on the DATABASE_URL environment variable.
-config.set_main_option("sqlalchemy.url", settings.database_url)
+config.set_main_option("sqlalchemy.url", settings.database_url.replace("%", "%%"))
 
 # Interpret the config file for Python logging.
 if config.config_file_name is not None:
