@@ -5,9 +5,9 @@ import { api } from '../services/api';
 
 // Import components
 import { MessageDisplay } from '../components/ui/MessageDisplay';
-import { SettingsHeader } from '../components/settings/SettingsHeader';
-import { SettingsTabs } from '../components/settings/SettingsTabs';
-import { SettingsContent } from '../components/settings/SettingsContent';
+import { SettingsHeader } from '../components/Settings/SettingsHeader';
+import { SettingsTabs } from '../components/Settings/SettingsTabs';
+import { SettingsContent } from '../components/Settings/SettingsContent';
 
 export default function SettingsPage() {
   // Auth and navigation
